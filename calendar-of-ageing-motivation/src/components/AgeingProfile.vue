@@ -64,18 +64,12 @@
       }
     }
 
-    public async getUserCountry(): Promise<string | null> {
-      const tmpData: any = await Axios.get("http://ip-api.com/json");
-      if (tmpData.data.status === "fail") {
-        console.error("fail to get data from http://ip-api.com/");
-        return null;
-      } else {
-        try {
-          return tmpData.data.country;
-        } catch (e) {
-          console.error("tmpData.data.country isn't available! :(");
-          return null;
-        }
+    public async getUserCountry(): Promise<string> {
+      try {
+        const tmpData: any = await Axios.get("https://ipapi.co/json/");
+        return tmpData.data.country_name;
+      } catch (e) {
+        return "Russia";
       }
     }
 
@@ -102,7 +96,7 @@
       if (localStorage.getItem("profile") !== null) {
         try {
           const tmpCurrentLifeExpectancy: string | null = localStorage.getItem("currentLifeExpectancy");
-          if(tmpCurrentLifeExpectancy) {
+          if (tmpCurrentLifeExpectancy) {
             const tmpCurrentLifeExpectancyArray: string[] = tmpCurrentLifeExpectancy.split("-");
             if (tmpCurrentLifeExpectancyArray.every(item => {
               return item !== null;
