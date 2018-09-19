@@ -1,9 +1,19 @@
 <template>
   <div class="ageingProfile">
     <form class="ageingProfile__inner" @submit.prevent="emitResults()">
-      <input type="text" class="nameInput" v-model="profile.name" placeholder="Как вас зовут?" required autofocus>
+      <input type="text"
+             class="nameInput"
+             v-model="profile.name"
+             placeholder="Как вас зовут?"
+             maxlength="20"
+             required
+             autofocus>
       <label class="dateOfBirthday">
-        Ваша дата рождения <input class="dateOfBirthday__input" type="date" v-model="profile.birthDate" required>
+        Ваша дата рождения <input class="dateOfBirthday__input"
+                                  min="1900-01-01" max="2018-01-01"
+                                  type="date"
+                                  v-model="profile.birthDate"
+                                  required>
       </label>
       <div class="genderPicker">
         <label class="genderPicker__option">
@@ -27,7 +37,7 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from "vue-property-decorator";
+  import {Vue, Component} from "vue-property-decorator";
   import Axios from "axios";
 
   import Profile from "../assets/classes/Profile";
@@ -41,11 +51,16 @@
     public memberMe: boolean = false;
 
     public async mounted() {
-      const profileTmp: string | null = await this.getUserCountry();
-      if(profileTmp !== null)
-        this.profile.country = profileTmp;
-      if (this.profile.country) {
-        this.currentLifeExpectancy = await this.getLifeExpectancyData(this.profile.country);
+      const profile: Profile | null = this.tryGetProfileFromMemory();
+      if (profile) {
+        this.profile = profile;
+      } else {
+        const profileTmp: string | null = await this.getUserCountry();
+        if (profileTmp !== null)
+          this.profile.country = profileTmp;
+        if (this.profile.country) {
+          this.currentLifeExpectancy = await this.getLifeExpectancyData(this.profile.country);
+        }
       }
     }
 
@@ -83,8 +98,70 @@
       }
     }
 
+    private tryGetProfileFromMemory(): Profile | null {
+      if (localStorage.getItem("profile") !== null) {
+        try {
+          const tmpCurrentLifeExpectancy: string | null = localStorage.getItem("currentLifeExpectancy");
+          if(tmpCurrentLifeExpectancy) {
+            const tmpCurrentLifeExpectancyArray: string[] = tmpCurrentLifeExpectancy.split("-");
+            if (tmpCurrentLifeExpectancyArray.every(item => {
+              return item !== null;
+            }))
+              this.currentLifeExpectancy = new LifeExpectancy(
+                parseInt(tmpCurrentLifeExpectancyArray[0]),
+                parseInt(tmpCurrentLifeExpectancyArray[1]),
+                parseInt(tmpCurrentLifeExpectancyArray[2]));
+          }
+          const gender = localStorage.getItem("gender");
+          const country = localStorage.getItem("country");
+          const name = localStorage.getItem("name");
+          const birthDate = localStorage.getItem("birthDate");
+          const shouldValidate = [gender, country, name, birthDate];
+          if (shouldValidate.every((item) => {
+            return item !== null;
+          })) {
+            return new Profile(gender as string, country as string, birthDate as string, name as string);
+          }
+        } catch (e) {
+          return name;
+        }
+
+      }
+      // Если что-то пошло не по плану все удаляем
+      this.removeProfileFromMemory();
+      return null;
+    }
+
+    private recordProfileInMemory(): void {
+      localStorage.setItem("gender", this.profile.gender);
+      localStorage.setItem("country", this.profile.country);
+      localStorage.setItem("birthDate", this.profile.birthDate);
+      this.profile.name ? localStorage.setItem("name", this.profile.name) : false;
+      const tmpCurrentLifeExpectancy =
+        this.currentLifeExpectancy.overall + "-" +
+        this.currentLifeExpectancy.male + "-" +
+        this.currentLifeExpectancy.female;
+      localStorage.setItem("currentLifeExpectancy", tmpCurrentLifeExpectancy);
+      localStorage.setItem("profile", "+");
+    }
+
+    private removeProfileFromMemory(): void {
+      localStorage.removeItem("gender");
+      localStorage.removeItem("country");
+      localStorage.removeItem("name");
+      localStorage.removeItem("birthDate");
+      localStorage.removeItem("currentLifeExpectancy");
+      localStorage.removeItem("profile");
+    }
+
     public emitResults() {
-      this.$emit('showResults', { profile: this.profile, currentLifeExpectancy: this.currentLifeExpectancy })
+      if (this.memberMe) {
+        this.recordProfileInMemory();
+      } else {
+        this.removeProfileFromMemory();
+      }
+
+      this.$emit("showResults", {profile: this.profile, currentLifeExpectancy: this.currentLifeExpectancy});
     }
   }
 </script>

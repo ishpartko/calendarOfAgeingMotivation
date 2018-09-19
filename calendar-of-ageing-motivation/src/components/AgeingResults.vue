@@ -41,7 +41,7 @@
     @Prop(Object) private profile!: Profile;
     @Prop(Object) private currentLifeExpectancy!: LifeExpectancy;
     // public currentLifeExpectancy: LifeExpectancy = new LifeExpectancy(70.3, 64.3, 76.4);
-    // public profile: Profile = new Profile("female", "Ukraine", "2000-06-30", "Ivan");
+    // public profile: Profile = new Profile("female", "Ukraine", "2001-08-09", "Ivan");
     public toLocal: ToLocal = new ToLocal;
 
     public get gotLived(): number | null { // Вернет проценты - сколько прожито

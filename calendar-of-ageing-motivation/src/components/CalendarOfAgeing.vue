@@ -22,9 +22,7 @@
     },
   })
   export default class CalendarOfAgeing extends Vue {
-
-    // public currentPage:string = "AgeingProfile";
-    public currentPage:string = "AgeingResults";
+    public currentPage:string = "AgeingProfile";
     public results:any = {};
 
     private showResults(results: any):void {
