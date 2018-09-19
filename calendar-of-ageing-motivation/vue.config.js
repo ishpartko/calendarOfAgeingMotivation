@@ -3,5 +3,6 @@ module.exports = {
     ? '/calendarOfAgeingMotivation/dist/'
     : '/',
   outputDir: "../docs/dist",
-  indexPath: "../index.html"
+  indexPath: "../index.html",
+  filenameHashing: false
 }
