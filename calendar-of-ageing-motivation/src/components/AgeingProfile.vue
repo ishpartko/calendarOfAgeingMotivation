@@ -54,6 +54,7 @@
       const profile: Profile | null = this.tryGetProfileFromMemory();
       if (profile) {
         this.profile = profile;
+        this.memberMe = true;
       } else {
         const profileTmp: string | null = await this.getUserCountry();
         if (profileTmp !== null)
