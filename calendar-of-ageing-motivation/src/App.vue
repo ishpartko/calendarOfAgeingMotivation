@@ -1,7 +1,5 @@
 <template>
-  <div id="app">
     <CalendarOfAgeing/>
-  </div>
 </template>
 
 <script lang="ts">
@@ -15,7 +13,3 @@ import CalendarOfAgeing from './components/CalendarOfAgeing.vue';
 })
 export default class App extends Vue {}
 </script>
-
-<style>
-  @import '~vuetify/dist/vuetify.min.css';
-</style>

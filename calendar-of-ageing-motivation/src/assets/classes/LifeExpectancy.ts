@@ -1,15 +1,15 @@
 export default class LifeExpectancy {
-  public readonly overall: number | null;
-  public readonly male: number | null;
-  public readonly female: number | null;
+  public readonly overall: number;
+  public readonly male: number;
+  public readonly female: number;
 
   constructor(overall?: number, male?: number, female?: number) {
-    this.overall = overall || null;
-    this.male = male || null;
-    this.female = female || null;
+    this.overall = overall || 0;
+    this.male = male || 0;
+    this.female = female || 0;
   }
 
-  getGender(option:string) {
+  public getGender(option: string): number {
     switch (option) {
       case "overall":
         return this.overall;
@@ -17,8 +17,7 @@ export default class LifeExpectancy {
         return this.male;
       case "female":
         return this.female;
-      default:
-        console.error("non expected argument in getGender");
     }
+    return this.overall;
   }
 }
