@@ -1,5 +1,10 @@
 # calendar-of-ageing-motivation
+[Demo](https://ishpartko.github.io/calendarOfAgeingMotivation/)
 
+## Open the project folder
+```
+cd calendar-of-ageing-motivation
+```
 ## Project setup
 ```
 yarn install
