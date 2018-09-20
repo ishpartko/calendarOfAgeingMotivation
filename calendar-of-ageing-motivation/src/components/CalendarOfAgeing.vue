@@ -77,8 +77,8 @@
     transform: translate(-10px, -10px);
     z-index: 10;
     border-radius: 50%;
-    border: 3px solid #D5D500;
-    color: #cdcd00;
+    border: 3px solid #00bb00;
+    color: #00bb00;
   }
 
   .backToForm {
@@ -106,7 +106,7 @@
       max-width: 100px;
       height: 100vh;
       cursor: pointer;
-      opacity: 0.1;
+      opacity: 0.3;
     }
 
     .backToForm:after {
