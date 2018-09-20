@@ -1,9 +1,5 @@
 <template>
   <div class="ageingResults">
-    <button class="backToForm"
-            title="Заполнить заново"
-            @click="showProfile()"></button>
-
     <div class="liveLine">
       <div class="liveLine__inner">
         <div class="liveLine__gotLived" :style="[{width: gotLived+'%'}]"></div>
@@ -52,11 +48,6 @@
         return null;
       }
     }
-
-    public showProfile() {
-      this.$emit('showProfile')
-    }
-
   }
 </script>
 
@@ -160,38 +151,4 @@
     color: #6f6f6f;
     font-size: 12pt;
   }
-
-  .backToForm {
-    position: static;
-    width: 100%;
-    opacity: 0.5;
-    border: none;
-  }
-
-  .backToForm:after {
-    content: 'Заполнить заново';
-  }
-
-  .backToForm:hover {
-    opacity: 0.7;
-  }
-
-  @media (min-width: 990px) and (min-height: 500px) {
-    .backToForm {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 20%;
-      max-width: 100px;
-      height: 100vh;
-      z-index: 20;
-      cursor: pointer;
-      opacity: 0.1;
-    }
-
-    .backToForm:after {
-      content: '<';
-    }
-  }
-
 </style>

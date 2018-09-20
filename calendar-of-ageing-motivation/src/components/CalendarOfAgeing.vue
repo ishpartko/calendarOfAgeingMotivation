@@ -1,10 +1,16 @@
 <template>
   <div class="AgeingProfile">
+    <button class="backToForm"
+            title="Заполнить заново"
+            v-show="currentPage !== previousPage"
+            @click="getBack()"></button>
+    <button class="whatIsIt"
+            v-if="currentPage !== 'WhatIsIt'"
+            @click="currentPage = 'WhatIsIt'">?</button>
     <component :is="currentPage"
                :profile="results.profile"
                :currentLifeExpectancy="results.currentLifeExpectancy"
-               @showResults="showResults"
-               @showProfile="showProfile"/>
+               @showResults="showResults"/>
   </div>
 </template>
 
@@ -14,24 +20,28 @@
 
   import AgeingResults from "./AgeingResults.vue";
   import AgeingProfile from "./AgeingProfile.vue";
+  import WhatIsIt from "./WhatIsIt.vue";
 
   @Component({
     components: {
       AgeingResults,
-      AgeingProfile
+      AgeingProfile,
+      WhatIsIt
     },
   })
   export default class CalendarOfAgeing extends Vue {
+    public previousPage:string = "AgeingProfile";
     public currentPage:string = "AgeingProfile";
     public results:any = {};
 
     private showResults(results: any):void {
       this.results = results;
+      this.previousPage = this.currentPage;
       this.currentPage = "AgeingResults";
     }
 
-    private showProfile():void {
-      this.currentPage = "AgeingProfile";
+    private getBack():void {
+      this.currentPage = this.previousPage;
     }
   }
 </script>
@@ -50,6 +60,58 @@
 
   .noSelect {
     user-select: none;
+  }
+
+  .whatIsIt {
+    content: '';
+    background-color: #ffffff;
+
+    height: 60px;
+    width: 60px;
+    min-width: 66px;
+    min-height: 66px;
+    padding: 2px;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    transform: translate(-10px, -10px);
+    z-index: 10;
+    border-radius: 50%;
+    border: 3px solid #D5D500;
+    color: #cdcd00;
+  }
+
+  .backToForm {
+    position: static;
+    width: 100%;
+    opacity: 0.5;
+    border: none;
+    z-index: 300;
+  }
+
+  .backToForm:after {
+    content: 'Вернуться';
+  }
+
+  .backToForm:hover {
+    opacity: 0.7;
+  }
+
+  @media (min-width: 990px) and (min-height: 500px) {
+    .backToForm {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20%;
+      max-width: 100px;
+      height: 100vh;
+      cursor: pointer;
+      opacity: 0.1;
+    }
+
+    .backToForm:after {
+      content: '<';
+    }
   }
 
 </style>
