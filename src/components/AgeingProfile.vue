@@ -47,7 +47,7 @@ import LifeExpectancy, { Gender } from '../assets/classes/LifeExpectancy'
 export default class AgeingProfile extends Vue {
   public currentLifeExpectancy: LifeExpectancy = new LifeExpectancy();
   public profile: Profile = new Profile(Gender.male, '', '');
-  public memberMe: boolean = false;
+  public memberMe = false;
 
   public async mounted () {
     const profile: Profile | null = this.tryGetProfileFromMemory()

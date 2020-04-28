@@ -29,8 +29,8 @@ import WhatIsIt from './WhatIsIt.vue'
   }
 })
 export default class CalendarOfAgeing extends Vue {
-  public previousPage: string = 'AgeingProfile';
-  public currentPage: string = 'AgeingProfile';
+  public previousPage = 'AgeingProfile';
+  public currentPage = 'AgeingProfile';
   public results: any = {};
 
   private showResults (results: any): void {

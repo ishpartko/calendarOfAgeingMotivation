@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lint:fix": "vue-cli-service lint",
-    "deploy": "npm run build & gh-pages -d dist"
+    "deploy": "npm run build & gh-pages -d dist",
+    "lint:fix": "vue-cli-service lint"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
@@ -21,8 +21,11 @@
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "@vue/cli-plugin-babel": "^4.3.1",
+    "@vue/cli-plugin-eslint": "^4.3.1",
     "@vue/cli-plugin-typescript": "~4.3.1",
     "@vue/cli-service": "^4.3.1",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "@vue/eslint-config-typescript": "^5.0.2",
     "babel-plugin-transform-imports": "^2.0.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",

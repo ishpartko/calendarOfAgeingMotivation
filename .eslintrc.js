@@ -1,26 +1,18 @@
 module.exports = {
+  root: true,
   env: {
-    browser: true,
-    es6: true
+    node: true
   },
   extends: [
     'plugin:vue/essential',
-    'standard'
+    '@vue/standard',
+    '@vue/typescript/recommended'
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
-  },
   parserOptions: {
-    ecmaVersion: 2018,
-    parser: '@typescript-eslint/parser',
-    sourceType: 'module'
+    ecmaVersion: 2020
   },
-  plugins: [
-    'vue',
-    '@typescript-eslint'
-  ],
   rules: {
-    'no-unused-vars': ['off'] // FIXME: tmp fix for ts bug
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }
 }
