@@ -3,13 +3,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import CalendarOfAgeing from './components/CalendarOfAgeing.vue';
+import { Component, Vue } from 'vue-property-decorator'
+import CalendarOfAgeing from './components/CalendarOfAgeing.vue'
 
 @Component({
   components: {
-    CalendarOfAgeing,
-  },
+    CalendarOfAgeing
+  }
 })
 export default class App extends Vue {}
 </script>

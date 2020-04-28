@@ -15,35 +15,34 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator'
 
+import AgeingResults from './AgeingResults.vue'
+import AgeingProfile from './AgeingProfile.vue'
+import WhatIsIt from './WhatIsIt.vue'
 
-  import AgeingResults from "./AgeingResults.vue";
-  import AgeingProfile from "./AgeingProfile.vue";
-  import WhatIsIt from "./WhatIsIt.vue";
-
-  @Component({
-    components: {
-      AgeingResults,
-      AgeingProfile,
-      WhatIsIt
-    },
-  })
-  export default class CalendarOfAgeing extends Vue {
-    public previousPage:string = "AgeingProfile";
-    public currentPage:string = "AgeingProfile";
-    public results:any = {};
-
-    private showResults(results: any):void {
-      this.results = results;
-      this.previousPage = this.currentPage;
-      this.currentPage = "AgeingResults";
-    }
-
-    private getBack():void {
-      this.currentPage = this.previousPage;
-    }
+@Component({
+  components: {
+    AgeingResults,
+    AgeingProfile,
+    WhatIsIt
   }
+})
+export default class CalendarOfAgeing extends Vue {
+  public previousPage: string = 'AgeingProfile';
+  public currentPage: string = 'AgeingProfile';
+  public results: any = {};
+
+  private showResults (results: any): void {
+    this.results = results
+    this.previousPage = this.currentPage
+    this.currentPage = 'AgeingResults'
+  }
+
+  private getBack (): void {
+    this.currentPage = this.previousPage
+  }
+}
 </script>
 
 <style>

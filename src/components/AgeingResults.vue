@@ -26,29 +26,29 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
-  import Profile from "../assets/classes/Profile";
-  import LifeExpectancy from "../assets/classes/LifeExpectancy";
-  import ToLocal from "../assets/classes/ToLocal";
+import Profile from '../assets/classes/Profile'
+import LifeExpectancy, { Gender } from '../assets/classes/LifeExpectancy'
+import ToLocal from '../assets/classes/ToLocal'
 
-  @Component
-  export default class AgeingResults extends Vue {
-    @Prop(Object) private profile!: Profile;
-    @Prop(Object) private currentLifeExpectancy!: LifeExpectancy;
-    // public currentLifeExpectancy: LifeExpectancy = new LifeExpectancy(70.3, 64.3, 76.4);
-    // public profile: Profile = new Profile("female", "Ukraine", "2001-08-09", "Ivan");
-    public toLocal: ToLocal = new ToLocal;
-
-    public get gotLived(): number | null { // Вернет проценты - сколько прожито
-      if (this.profile.gender && this.profile.howOld) {
-        const userGender: string = this.profile.gender.toString();
-        return  Math.round(this.profile.howOld / this.currentLifeExpectancy.getGender(userGender) * 100);
-      } else {
-        return null;
-      }
+@Component
+export default class AgeingResults extends Vue {
+  public get gotLived (): number | null { // Вернет проценты - сколько прожито
+    if (this.profile.gender && this.profile.howOld) {
+      const userGender: Gender = this.profile.gender
+      return Math.round(this.profile.howOld / this.currentLifeExpectancy.getGender(userGender) * 100)
+    } else {
+      return null
     }
   }
+
+  // public currentLifeExpectancy: LifeExpectancy = new LifeExpectancy(70.3, 64.3, 76.4);
+  // public profile: Profile = new Profile("female", "Ukraine", "2001-08-09", "Ivan");
+  public toLocal: ToLocal = new ToLocal();
+  @Prop(Object) private profile!: Profile;
+  @Prop(Object) private currentLifeExpectancy!: LifeExpectancy;
+}
 </script>
 
 <style scoped>

@@ -37,128 +37,127 @@
 </template>
 
 <script lang="ts">
-  import {Vue, Component} from "vue-property-decorator";
-  import Axios from "axios";
+import { Vue, Component } from 'vue-property-decorator'
+import Axios from 'axios'
 
-  import Profile from "../assets/classes/Profile";
-  import LifeExpectancy from "../assets/classes/LifeExpectancy";
+import Profile from '../assets/classes/Profile'
+import LifeExpectancy, { Gender } from '../assets/classes/LifeExpectancy'
 
-  @Component
-  export default class AgeingProfile extends Vue {
+@Component
+export default class AgeingProfile extends Vue {
+  public currentLifeExpectancy: LifeExpectancy = new LifeExpectancy();
+  public profile: Profile = new Profile(Gender.male, '', '');
+  public memberMe: boolean = false;
 
-    public currentLifeExpectancy: LifeExpectancy = new LifeExpectancy();
-    public profile: Profile = new Profile("male", "", "");
-    public memberMe: boolean = false;
-
-    public async mounted() {
-      const profile: Profile | null = this.tryGetProfileFromMemory();
-      if (profile) {
-        this.profile = profile;
-        this.memberMe = true;
-      } else {
-        const profileTmp: string | null = await this.getUserCountry();
-        if (profileTmp !== null)
-          this.profile.country = profileTmp;
-        if (this.profile.country) {
-          this.currentLifeExpectancy = await this.getLifeExpectancyData(this.profile.country);
-        }
+  public async mounted () {
+    const profile: Profile | null = this.tryGetProfileFromMemory()
+    if (profile) {
+      this.profile = profile
+      this.memberMe = true
+    } else {
+      const profileTmp: string | null = await this.getUserCountry()
+      if (profileTmp !== null) {
+        this.profile.country = profileTmp
       }
-    }
-
-    public async getUserCountry(): Promise<string> {
-      try {
-        const tmpData: any = await Axios.get("https://ipapi.co/json/");
-        return tmpData.data.country_name;
-      } catch (e) {
-        return "Russia";
+      if (this.profile.country) {
+        this.currentLifeExpectancy = await this.getLifeExpectancyData(this.profile.country)
       }
-    }
-
-    public getLifeExpectancyData(userCountry: string): LifeExpectancy {
-      switch (userCountry) {
-        case "Ukraine":
-          return new LifeExpectancy(71.8, 67.1, 76.9);
-        case "Russia":
-          return new LifeExpectancy(70.3, 64.3, 76.4);
-        case "Belarus":
-          return new LifeExpectancy(72.7, 67.2, 78.6);
-        case "United States":
-          return new LifeExpectancy(79.8, 77.5, 82.1);
-        case "Germany":
-          return new LifeExpectancy(80.7, 78.4, 83.1);
-        case "United Kingdom":
-          return new LifeExpectancy(80.7, 78.5, 83);
-        default:
-          return new LifeExpectancy(70.3, 64.3, 76.4);
-      }
-    }
-
-    private tryGetProfileFromMemory(): Profile | null {
-      if (localStorage.getItem("profile") !== null) {
-        try {
-          const tmpCurrentLifeExpectancy: string | null = localStorage.getItem("currentLifeExpectancy");
-          if (tmpCurrentLifeExpectancy) {
-            const tmpCurrentLifeExpectancyArray: string[] = tmpCurrentLifeExpectancy.split("-");
-            if (tmpCurrentLifeExpectancyArray.every(item => {
-              return item !== null;
-            }))
-              this.currentLifeExpectancy = new LifeExpectancy(
-                parseInt(tmpCurrentLifeExpectancyArray[0]),
-                parseInt(tmpCurrentLifeExpectancyArray[1]),
-                parseInt(tmpCurrentLifeExpectancyArray[2]));
-          }
-          const gender = localStorage.getItem("gender");
-          const country = localStorage.getItem("country");
-          const name = localStorage.getItem("name");
-          const birthDate = localStorage.getItem("birthDate");
-          const shouldValidate = [gender, country, name, birthDate];
-          if (shouldValidate.every((item) => {
-            return item !== null;
-          })) {
-            return new Profile(gender as string, country as string, birthDate as string, name as string);
-          }
-        } catch (e) {
-          return name;
-        }
-
-      }
-      // Если что-то пошло не по плану все удаляем
-      this.removeProfileFromMemory();
-      return null;
-    }
-
-    private recordProfileInMemory(): void {
-      localStorage.setItem("gender", this.profile.gender);
-      localStorage.setItem("country", this.profile.country);
-      localStorage.setItem("birthDate", this.profile.birthDate);
-      this.profile.name ? localStorage.setItem("name", this.profile.name) : false;
-      const tmpCurrentLifeExpectancy =
-        this.currentLifeExpectancy.overall + "-" +
-        this.currentLifeExpectancy.male + "-" +
-        this.currentLifeExpectancy.female;
-      localStorage.setItem("currentLifeExpectancy", tmpCurrentLifeExpectancy);
-      localStorage.setItem("profile", "+");
-    }
-
-    private removeProfileFromMemory(): void {
-      localStorage.removeItem("gender");
-      localStorage.removeItem("country");
-      localStorage.removeItem("name");
-      localStorage.removeItem("birthDate");
-      localStorage.removeItem("currentLifeExpectancy");
-      localStorage.removeItem("profile");
-    }
-
-    public emitResults() {
-      if (this.memberMe) {
-        this.recordProfileInMemory();
-      } else {
-        this.removeProfileFromMemory();
-      }
-
-      this.$emit("showResults", {profile: this.profile, currentLifeExpectancy: this.currentLifeExpectancy});
     }
   }
+
+  public async getUserCountry (): Promise<string> {
+    try {
+      const tmpData: any = await Axios.get('https://ipapi.co/json/')
+      return tmpData.data.country_name
+    } catch (e) {
+      return 'Russia'
+    }
+  }
+
+  public getLifeExpectancyData (userCountry: string): LifeExpectancy {
+    switch (userCountry) {
+      case 'Ukraine':
+        return new LifeExpectancy(71.8, 67.1, 76.9)
+      case 'Russia':
+        return new LifeExpectancy(70.3, 64.3, 76.4)
+      case 'Belarus':
+        return new LifeExpectancy(72.7, 67.2, 78.6)
+      case 'United States':
+        return new LifeExpectancy(79.8, 77.5, 82.1)
+      case 'Germany':
+        return new LifeExpectancy(80.7, 78.4, 83.1)
+      case 'United Kingdom':
+        return new LifeExpectancy(80.7, 78.5, 83)
+      default:
+        return new LifeExpectancy(70.3, 64.3, 76.4)
+    }
+  }
+
+  public emitResults () {
+    if (this.memberMe) {
+      this.recordProfileInMemory()
+    } else {
+      this.removeProfileFromMemory()
+    }
+
+    this.$emit('showResults', { profile: this.profile, currentLifeExpectancy: this.currentLifeExpectancy })
+  }
+
+  private tryGetProfileFromMemory (): Profile | null {
+    if (localStorage.getItem('profile') !== null) {
+      try {
+        const tmpCurrentLifeExpectancy: string | null = localStorage.getItem('currentLifeExpectancy')
+        if (tmpCurrentLifeExpectancy) {
+          const tmpCurrentLifeExpectancyArray: string[] = tmpCurrentLifeExpectancy.split('-')
+          if (tmpCurrentLifeExpectancyArray.every((item) => {
+            return item !== null
+          })) {
+            this.currentLifeExpectancy = new LifeExpectancy(
+              parseInt(tmpCurrentLifeExpectancyArray[0]),
+              parseInt(tmpCurrentLifeExpectancyArray[1]),
+              parseInt(tmpCurrentLifeExpectancyArray[2]))
+          }
+        }
+        const gender = localStorage.getItem('gender')
+        const country = localStorage.getItem('country')
+        const name = localStorage.getItem('name')
+        const birthDate = localStorage.getItem('birthDate')
+        const shouldValidate = [gender, country, name, birthDate]
+        if (shouldValidate.every((item) => {
+          return item !== null
+        })) {
+          return new Profile(gender as Gender, country as string, birthDate as string, name as string)
+        }
+      } catch (e) {
+        return name
+      }
+    }
+    // Если что-то пошло не по плану все удаляем
+    this.removeProfileFromMemory()
+    return null
+  }
+
+  private recordProfileInMemory (): void {
+    localStorage.setItem('gender', this.profile.gender)
+    localStorage.setItem('country', this.profile.country)
+    localStorage.setItem('birthDate', this.profile.birthDate)
+    const tmpCurrentLifeExpectancy =
+      this.currentLifeExpectancy.overall + '-' +
+      this.currentLifeExpectancy.male + '-' +
+      this.currentLifeExpectancy.female
+    localStorage.setItem('currentLifeExpectancy', tmpCurrentLifeExpectancy)
+    localStorage.setItem('profile', '+')
+  }
+
+  private removeProfileFromMemory (): void {
+    localStorage.removeItem('gender')
+    localStorage.removeItem('country')
+    localStorage.removeItem('name')
+    localStorage.removeItem('birthDate')
+    localStorage.removeItem('currentLifeExpectancy')
+    localStorage.removeItem('profile')
+  }
+}
 </script>
 
 <style scoped>
