@@ -5,25 +5,25 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "eslint ./src/**/*.{ts,vue}",
-    "lint:fix": "eslint ./src/**/*.{ts,vue} --fix",
+    "lint": "vue-cli-service lint",
+    "lint:fix": "vue-cli-service lint",
     "deploy": "npm run build & gh-pages -d dist"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
-    "axios": "^0.18.0",
-    "vue": "^2.5.17",
-    "vue-class-component": "^6.0.0",
-    "vue-property-decorator": "^7.0.0"
+    "axios": "^0.19.2",
+    "vue": "^2.6.11",
+    "vue-class-component": "^7.2.3",
+    "vue-property-decorator": "^8.4.2"
   },
   "devDependencies": {
-    "@babel/polyfill": "^7.0.0-beta.49",
+    "@babel/polyfill": "^7.8.7",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
-    "@vue/cli-plugin-babel": "^3.0.1",
-    "@vue/cli-plugin-typescript": "^3.0.1",
-    "@vue/cli-service": "^3.0.1",
-    "babel-plugin-transform-imports": "^1.4.1",
+    "@vue/cli-plugin-babel": "^4.3.1",
+    "@vue/cli-plugin-typescript": "~4.3.1",
+    "@vue/cli-service": "^4.3.1",
+    "babel-plugin-transform-imports": "^2.0.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
@@ -31,10 +31,10 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^6.2.2",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1",
-    "typescript": "^3.0.0",
-    "vue-cli-plugin-vuetify": "^0.2.0",
-    "vue-template-compiler": "^2.5.17"
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "typescript": "^3.8.3",
+    "vue-cli-plugin-vuetify": "^2.0.5",
+    "vue-template-compiler": "^2.6.11"
   }
 }
