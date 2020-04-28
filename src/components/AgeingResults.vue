@@ -37,7 +37,7 @@ export default class AgeingResults extends Vue {
   public get gotLived (): number | null { // Вернет проценты - сколько прожито
     if (this.profile.gender && this.profile.howOld) {
       const userGender: Gender = this.profile.gender
-      return Math.round(this.profile.howOld / this.currentLifeExpectancy.getGender(userGender) * 100)
+      return Math.round(this.profile.howOld / this.currentLifeExpectancy.getByGender(userGender) * 100)
     } else {
       return null
     }
