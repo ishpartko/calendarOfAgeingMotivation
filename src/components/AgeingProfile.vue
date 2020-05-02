@@ -40,7 +40,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import Axios from 'axios'
 
-import Profile from '@/models/Profile'
+import { Profile } from '@/models/Profile'
 import { LifeExpectancy, Gender } from '@/models/LifeExpectancy'
 
 @Component

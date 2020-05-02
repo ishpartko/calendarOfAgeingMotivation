@@ -28,7 +28,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-import Profile from '@/models/Profile'
+import { Profile } from '@/models/Profile'
 import { LifeExpectancy, Gender } from '@/models/LifeExpectancy'
 import ToLocal from '@/models/ToLocal'
 

@@ -23,6 +23,7 @@ import AgeingResults from './AgeingResults.vue'
 import AgeingProfile from './AgeingProfile.vue'
 import WhatIsIt from './WhatIsIt.vue'
 import { LifeExpectancy } from '@/models/LifeExpectancy'
+import { Profile } from '@/models/Profile'
 
 enum PageNames {
   AgeingProfile = 'AgeingProfile',
@@ -33,7 +34,7 @@ type PageName = PageNames.AgeingProfile | PageNames.AgeingResults
 
 interface UserResults {
   currentLifeExpectancy: LifeExpectancy;
-  profile: any;
+  profile: Profile;
 }
 
 @Component({

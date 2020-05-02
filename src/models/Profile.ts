@@ -1,5 +1,5 @@
 import { Gender } from './LifeExpectancy'
-export default class Profile {
+export class Profile {
   public birthDate: string;
   public gender: Gender;
   public country: string;
