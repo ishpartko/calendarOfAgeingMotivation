@@ -28,9 +28,9 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-import Profile from '../assets/classes/Profile'
-import LifeExpectancy, { Gender } from '../assets/classes/LifeExpectancy'
-import ToLocal from '../assets/classes/ToLocal'
+import Profile from '@/models/Profile'
+import { LifeExpectancy, Gender } from '@/models/LifeExpectancy'
+import ToLocal from '@/models/ToLocal'
 
 @Component
 export default class AgeingResults extends Vue {

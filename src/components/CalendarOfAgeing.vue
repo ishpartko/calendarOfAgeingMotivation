@@ -7,10 +7,12 @@
     <button class="whatIsIt"
             v-if="currentPage !== 'WhatIsIt'"
             @click="currentPage = 'WhatIsIt'">?</button>
-    <component :is="currentPage"
-               :profile="results.profile"
-               :currentLifeExpectancy="results.currentLifeExpectancy"
-               @showResults="showResults"/>
+            <AgeingProfile @showResults="showResults"></AgeingProfile>
+            <AgeingResults
+            :profile="results.profile"
+            :currentLifeExpectancy="results.currentLifeExpectancy"
+            ></AgeingResults>
+
   </div>
 </template>
 
@@ -20,6 +22,19 @@ import { Component, Vue } from 'vue-property-decorator'
 import AgeingResults from './AgeingResults.vue'
 import AgeingProfile from './AgeingProfile.vue'
 import WhatIsIt from './WhatIsIt.vue'
+import { LifeExpectancy } from '@/models/LifeExpectancy'
+
+enum PageNames {
+  AgeingProfile = 'AgeingProfile',
+  AgeingResults = 'AgeingResults'
+}
+
+type PageName = PageNames.AgeingProfile | PageNames.AgeingResults
+
+interface UserResults {
+  currentLifeExpectancy: LifeExpectancy;
+  profile: any;
+}
 
 @Component({
   components: {
@@ -29,18 +44,16 @@ import WhatIsIt from './WhatIsIt.vue'
   }
 })
 export default class CalendarOfAgeing extends Vue {
-  public previousPage = 'AgeingProfile';
-  public currentPage = 'AgeingProfile';
-  public results: any = {};
+  public results: UserResults | null = null;
+  private activePageName: PageName = PageNames.AgeingProfile
 
-  private showResults (results: any): void {
-    this.results = results
-    this.previousPage = this.currentPage
-    this.currentPage = 'AgeingResults'
+  get pageNames () {
+    return PageNames
   }
 
-  private getBack (): void {
-    this.currentPage = this.previousPage
+  private showResults (results: UserResults): void {
+    this.results = results
+    this.activePageName = PageNames.AgeingResults
   }
 }
 </script>

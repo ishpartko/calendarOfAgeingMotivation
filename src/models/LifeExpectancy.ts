@@ -4,7 +4,7 @@ export enum Gender {
   female = 'female',
 }
 
-export default class LifeExpectancy {
+export class LifeExpectancy {
   public readonly overall: number;
   public readonly male: number;
   public readonly female: number;

@@ -1,6 +1,10 @@
 # calendar-of-ageing-motivation
 [Demo](https://ishpartko.github.io/calendarOfAgeingMotivation/)
 
+This project can show you that your life isn't endless.
+
+It uses [wolframalpha](https://wolframalpha.com) API  
+
 ## Open the project folder
 ```
 cd calendar-of-ageing-motivation

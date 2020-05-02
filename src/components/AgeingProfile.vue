@@ -40,8 +40,8 @@
 import { Vue, Component } from 'vue-property-decorator'
 import Axios from 'axios'
 
-import Profile from '../assets/classes/Profile'
-import LifeExpectancy, { Gender } from '../assets/classes/LifeExpectancy'
+import Profile from '@/models/Profile'
+import { LifeExpectancy, Gender } from '@/models/LifeExpectancy'
 
 @Component
 export default class AgeingProfile extends Vue {
