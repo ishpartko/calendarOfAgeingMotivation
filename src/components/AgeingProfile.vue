@@ -42,6 +42,7 @@ import Axios from 'axios'
 
 import { Profile } from '@/models/Profile'
 import { LifeExpectancy, Gender } from '@/models/LifeExpectancy'
+import w from 'wolfram-alpha-api'
 
 @Component
 export default class AgeingProfile extends Vue {

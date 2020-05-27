@@ -7,12 +7,8 @@
     <button class="whatIsIt"
             v-if="currentPage !== 'WhatIsIt'"
             @click="currentPage = 'WhatIsIt'">?</button>
-            <AgeingProfile @showResults="showResults"></AgeingProfile>
-            <AgeingResults
-            :profile="results.profile"
-            :currentLifeExpectancy="results.currentLifeExpectancy"
-            ></AgeingResults>
-
+    <AgeingProfile @showResults="showResults"></AgeingProfile>
+    <AgeingResults :results="results"></AgeingResults>
   </div>
 </template>
 
@@ -32,7 +28,7 @@ enum PageNames {
 
 type PageName = PageNames.AgeingProfile | PageNames.AgeingResults
 
-interface UserResults {
+export interface UserResults {
   currentLifeExpectancy: LifeExpectancy;
   profile: Profile;
 }

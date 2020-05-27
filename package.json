@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
-    "@dguttman/wolfram-alpha-api": "^1.0.0-rc.1",
     "axios": "^0.19.2",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
-    "vue-property-decorator": "^8.4.2"
+    "vue-property-decorator": "^8.4.2",
+    "wolfram-alpha-api": "https://products.wolframalpha.com/api/libraries/javascript/wolfram-alpha-api-1.0.0-rc.1.tgz"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.8.7",

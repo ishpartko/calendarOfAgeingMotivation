@@ -28,26 +28,23 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-import { Profile } from '@/models/Profile'
-import { LifeExpectancy, Gender } from '@/models/LifeExpectancy'
+import { UserResults } from '@/components/CalendarOfAgeing.vue'
 import ToLocal from '@/models/ToLocal'
+import { Gender } from '@/models/LifeExpectancy'
 
 @Component
 export default class AgeingResults extends Vue {
   public get gotLived (): number | null { // Вернет проценты - сколько прожито
-    if (this.profile.gender && this.profile.howOld) {
-      const userGender: Gender = this.profile.gender
-      return Math.round(this.profile.howOld / this.currentLifeExpectancy.getByGender(userGender) * 100)
+    if (this.results.profile.gender && this.results.profile.howOld) {
+      const userGender: Gender = this.results.profile.gender
+      return Math.round(this.results.profile.howOld / this.results.currentLifeExpectancy.getByGender(userGender) * 100)
     } else {
       return null
     }
   }
 
-  // public currentLifeExpectancy: LifeExpectancy = new LifeExpectancy(70.3, 64.3, 76.4);
-  // public profile: Profile = new Profile("female", "Ukraine", "2001-08-09", "Ivan");
   public toLocal: ToLocal = new ToLocal();
-  @Prop(Object) private profile!: Profile;
-  @Prop(Object) private currentLifeExpectancy!: LifeExpectancy;
+  @Prop({ required: true, type: Object }) private results!: UserResults;
 }
 </script>
 
